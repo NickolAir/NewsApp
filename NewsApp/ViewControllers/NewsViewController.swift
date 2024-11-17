@@ -38,9 +38,11 @@ class NewsViewController: UIViewController {
         
         view.addSubview(searchBar)
         view.addSubview(tableView)
+        view.addSubview(segmentControl)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
         
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(sortOrderChanged), for: .valueChanged)
@@ -50,10 +52,14 @@ class NewsViewController: UIViewController {
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            segmentControl.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+            segmentControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            segmentControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 
@@ -64,25 +70,11 @@ class NewsViewController: UIViewController {
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
-
-        viewModel.$error
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                self?.showError(error)
-            }
-            .store(in: &cancellables)
     }
 
     @objc private func sortOrderChanged() {
         let sortBy = segmentControl.selectedSegmentIndex == 0 ? "publishedAt" : "popularity"
         viewModel.changeSortOrder(to: sortBy)
-    }
-
-    private func showError(_ message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
     }
 }
 
@@ -98,7 +90,7 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsViewCell.self), for: indexPath)
         let article = viewModel.articles[indexPath.row]
         cell.textLabel?.text = article.title
         return cell
