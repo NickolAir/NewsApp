@@ -2,7 +2,7 @@ import UIKit
 
 class NewsViewCell: UITableViewCell {
     
-    var viewModel: Response.Article? {
+    var viewModel: TableViewCell.News? {
         didSet {
             updateUI()
         }
@@ -40,7 +40,7 @@ class NewsViewCell: UITableViewCell {
     func updateUI() {
         guard let viewModel else { return }
         
-        dateLabel.text = viewModel.date
+        dateLabel.text = viewModel.publishedAt
         titleLabel.text = viewModel.title
     }
     
