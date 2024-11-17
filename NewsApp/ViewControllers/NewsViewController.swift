@@ -33,6 +33,9 @@ class NewsViewController: UIViewController {
     }
 
     private func setupUI() {
+        view.backgroundColor = .white
+        self.navigationItem.title = "Новости"
+        
         view.addSubview(searchBar)
         view.addSubview(tableView)
         
@@ -56,7 +59,7 @@ class NewsViewController: UIViewController {
 
     private func setupBindings() {
         viewModel.$articles
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
@@ -64,7 +67,7 @@ class NewsViewController: UIViewController {
 
         viewModel.$error
             .compactMap { $0 }
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 self?.showError(error)
             }

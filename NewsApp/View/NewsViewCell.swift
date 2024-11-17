@@ -66,58 +66,58 @@ class NewsViewCell: UITableViewCell {
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: DateLabelConstraints.top.value),
         ])
     }
-}
-
-enum TitleLabelConstrains {
-    case top
-    case bottom
-    case leftPadding
     
-    var value: CGFloat {
-        switch self {
-        case .bottom:
-            return 20
-        case .top:
-            return 10
-        case .leftPadding:
-            return 20
+    enum TitleLabelConstrains {
+        case top
+        case bottom
+        case leftPadding
+        
+        var value: CGFloat {
+            switch self {
+            case .bottom:
+                return 20
+            case .top:
+                return 10
+            case .leftPadding:
+                return 20
+            }
         }
     }
-}
 
-enum DateLabelConstraints {
-    case top
-    case bottom
-    case leftPadding
-    
-    var value: CGFloat {
-        switch self {
-        case .bottom:
-            return 10
-        case .top:
-            return 10
-        case .leftPadding:
-            return 20
+    enum DateLabelConstraints {
+        case top
+        case bottom
+        case leftPadding
+        
+        var value: CGFloat {
+            switch self {
+            case .bottom:
+                return 10
+            case .top:
+                return 10
+            case .leftPadding:
+                return 20
+            }
         }
     }
-}
 
-enum CellConstraints {
-    case leftPadding
-    case rightPadding
-    case topPadding
-    case bottomPadding
-    
-    var value: CGFloat {
-        switch self {
-        case .leftPadding:
-            return 20
-        case .rightPadding:
-            return -20
-        case .topPadding:
-            return 12
-        case .bottomPadding:
-            return -12
+    enum CellConstraints {
+        case leftPadding
+        case rightPadding
+        case topPadding
+        case bottomPadding
+        
+        var value: CGFloat {
+            switch self {
+            case .leftPadding:
+                return 20
+            case .rightPadding:
+                return -20
+            case .topPadding:
+                return 12
+            case .bottomPadding:
+                return -12
+            }
         }
     }
 }
