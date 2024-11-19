@@ -68,27 +68,30 @@ class NewsViewCell: UITableViewCell {
             mainView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: CellConstraints.topPadding.value),
             mainView.heightAnchor.constraint(equalToConstant: 60),
             
-            titleLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: TitleLabelConstrains.top.value),
-            titleLabel.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: TitleLabelConstrains.leftPadding.value),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TitleLabelConstrains.top.value),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: TitleLabelConstrains.leftPadding.value),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: TitleLabelConstrains.rightPadding.value),
             
-            dateLabel.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: DateLabelConstraints.leftPadding.value),
-            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: DateLabelConstraints.bottom.value),
+            dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: DateLabelConstraints.top.value),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: DateLabelConstraints.leftPadding.value),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: DateLabelConstraints.rightPadding.value),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: DateLabelConstraints.bottom.value)
         ])
     }
     
     enum TitleLabelConstrains {
         case top
-        case bottom
+        case rightPadding
         case leftPadding
         
         var value: CGFloat {
             switch self {
-            case .bottom:
-                return 4
+            case .rightPadding:
+                return -16
             case .top:
-                return 4
+                return 10
             case .leftPadding:
-                return 4
+                return 16
             }
         }
     }
@@ -97,15 +100,18 @@ class NewsViewCell: UITableViewCell {
         case top
         case bottom
         case leftPadding
+        case rightPadding
         
         var value: CGFloat {
             switch self {
             case .bottom:
-                return -4
+                return -10
             case .top:
                 return 4
             case .leftPadding:
-                return 4
+                return 16
+            case .rightPadding:
+                return -16
             }
         }
     }

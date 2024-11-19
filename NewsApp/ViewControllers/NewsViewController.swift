@@ -90,9 +90,11 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsViewCell.self), for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NewsViewCell.self), for: indexPath) as? NewsViewCell else {
+            return UITableViewCell()
+        }
         let article = viewModel.articles[indexPath.row]
-        cell.textLabel?.text = article.title
+        cell.viewModel = TableViewCell.News(author: article.author, title: article.title, publishedAt: article.publishedAt, content: article.content)
         return cell
     }
 
